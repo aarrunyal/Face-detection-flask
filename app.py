@@ -7,8 +7,8 @@ import os, random, datetime
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/uploads'
 
-# if not os.path.isfile('person.db'):
-db.create_table()
+if not os.path.isfile('person.db'):
+    db.create_table()
 
 def generateRandomInt():
     return random.randrange(1000, 9999, 4)

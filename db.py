@@ -4,7 +4,7 @@ from person import Person
 table_create_stmt= "CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY, name varchar(255) not null, age INTEGER not null, email varchar(255) not null, image varchar(255) not null )"
 
 def connection():
-    return  sqlite3.connect("face_detection.py")
+    return  sqlite3.connect("person.db")
 
 def create_table():
     conn = connection()
@@ -27,7 +27,7 @@ def insert(user):
     conn.close()
 
 def view():
-    conn = connection();
+    conn = connection()
     cur = conn.cursor()
     cur.execute("SELECT * FROM users")
     rows = cur.fetchall()

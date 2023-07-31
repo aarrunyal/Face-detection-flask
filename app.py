@@ -1,7 +1,8 @@
-from flask import Flask, request, jsonify, render_template, redirect
+from flask import Flask, request, jsonify, render_template, redirect, Response
 from person import Person;
 import db
 import os, random, datetime
+from face_detection import camera_stream
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/uploads'
@@ -49,44 +50,16 @@ def delete():
     db.deleteAll()
     return redirect("/")
 
-@app.route("/user", methods=["POST"])
-def create_user():
-    data = request.get_json()
-    person = Person("", data.name,data.age, data.email, data.image)
-    db.insert(person)
-    return jsonify({
-                'status': '200',
-                'msg': 'Success creating a new person!'
-            })
-
-@app.route('/user', methods=['GET'])
-def getRequest():
-    content_type = request.headers.get('Content-Type')
-    bks = [Person.serialize() for b in db.view()]
-    if (content_type == 'application/json'):
-        json = request.json
-        for b in bks:
-            if b['id'] == int(json['id']):
-                return jsonify({
-                    # 'error': '',
-                    'res': b,
-                    'status': '200',
-                    'msg': 'Success getting all books in library!'
-                })
-        return jsonify({
-            'error': f"Error! Book with id '{json['id']}' not found!",
-            'res': '',
-            'status': '404'
-        })
-    else:
-        return jsonify({
-                    # 'error': '',
-                    'res': bks,
-                    'status': '200',
-                    'msg': 'Success getting all persons!',
-                    'no_of_books': len(bks)
-                })
-
+def gen_frame():
+    """Video streaming generator function."""
+    while True:
+        frame = camera_stream()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n') # concate frame one by one and show result
+        
+@app.route("/video_stream")
+def video_stream():
+    return Response(gen_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
     app.run(debug=True)

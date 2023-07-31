@@ -4,16 +4,16 @@ echo "******************Pulling from the github******************"
 git pull origin main
 echo "******************Pulled from the github******************"
 
-echo "******************Removing env file******************"
-rm -rf env
-echo "******************Removed env file******************"
+# echo "******************Removing env file******************"
+# rm -rf env
+# echo "******************Removed env file******************"
 
-echo "******************Creating new env ******************"
-python3 -m venv env
-echo "******************New env created ******************"
+# echo "******************Creating new env ******************"
+# python3 -m venv env
+# echo "******************New env created ******************"
 
-source env/bin/activate
-echo "******************Virtual Env Activated ******************"
+# source env/bin/activate
+# echo "******************Virtual Env Activated ******************"
 
 echo "******************Pip package installation ongoing******************"
 pip3 install wheel

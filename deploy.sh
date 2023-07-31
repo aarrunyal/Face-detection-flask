@@ -25,3 +25,6 @@ if (systemctl -q is-active face-detection.service)
     systemctl restart face-detection.service
     echo "******************Restarting system service******************"
 fi
+
+
+systemctl restart nginx.service

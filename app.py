@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, render_template, redirect, Response
 from person import Person;
 import db
 import os, random, datetime
-from face_detection import camera_stream
+# from face_detection import camera_stream
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/uploads'
@@ -50,16 +50,16 @@ def delete():
     db.deleteAll()
     return redirect("/")
 
-def gen_frame():
-    """Video streaming generator function."""
-    while True:
-        frame = camera_stream()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n') # concate frame one by one and show result
+# def gen_frame():
+#     """Video streaming generator function."""
+#     while True:
+#         frame = camera_stream()
+#         yield (b'--frame\r\n'
+#                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n') # concate frame one by one and show result
         
-@app.route("/video_stream")
-def video_stream():
-    return Response(gen_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
+# @app.route("/video_stream")
+# def video_stream():
+#     return Response(gen_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
     app.run(debug=True)

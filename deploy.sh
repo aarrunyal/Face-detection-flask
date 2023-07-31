@@ -12,6 +12,8 @@ echo "******************Creating new env ******************"
 python3 -m venv env
 echo "******************New env created ******************"
 
+source env/bin/activate
+echo "******************Virtual Env Activated ******************"
 
 echo "******************Pip package installation ongoing******************"
 pip3 install wheel

@@ -16,9 +16,12 @@ echo "******************New env created ******************"
 echo "******************Pip package installation ongoing******************"
 pip3 install wheel
 pip3 install gunicorn
-pip3 install opencv-python
 pip3 install flask
+pip3 install opencv-python
 echo "******************Pip packages installed******************"
+
+systemctl daemon-reload
+systemctl restart gunicorn
 
 if (systemctl -q is-active face-detection.service)
     then

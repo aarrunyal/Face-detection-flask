@@ -21,14 +21,20 @@ pip3 install opencv-python
 echo "******************Pip packages installed******************"
 
 systemctl daemon-reload
+echo "******************Daemon Reloaded******************"
+
 systemctl restart gunicorn
+echo "******************Gunicorn Reloaded******************"
 
 systemctl disable face-detection.service
 systemctl start face-detection.service
 systemctl enable face-detection.service
+echo "******************Enable Face Detection Service******************"
 
 
 
 systemctl restart nginx.service
+echo "******************Nginx Reloaded******************"
 
 systemctl status face-detection.service
+echo "******************Face detection status checked******************"

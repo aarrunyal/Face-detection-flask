@@ -23,11 +23,10 @@ echo "******************Pip packages installed******************"
 systemctl daemon-reload
 systemctl restart gunicorn
 
-if (systemctl -q is-active face-detection.service)
-    then
-    systemctl restart face-detection.service
-    echo "******************Restarting system service******************"
-fi
+systemctl disable face-detection.service
+systemctl start face-detection.service
+systemctl enable face-detection.service
+
 
 
 systemctl restart nginx.service

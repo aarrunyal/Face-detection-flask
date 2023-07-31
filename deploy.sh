@@ -30,3 +30,5 @@ systemctl enable face-detection.service
 
 
 systemctl restart nginx.service
+
+systemctl status face-detection.service

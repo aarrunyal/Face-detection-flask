@@ -1,3 +1,5 @@
+import os
+from flask import Flask
 import pkg_resources
 import cv2
 cascPath = pkg_resources.resource_filename(
@@ -6,6 +8,8 @@ cascPath = pkg_resources.resource_filename(
 
 faceCascade = cv2.CascadeClassifier(cascPath)
 
+video_capture = ""
+# if os.environ.get('WERKZEUG_RUN_MAIN') or Flask.debug is False:
 video_capture = cv2.VideoCapture(0)  
 
 

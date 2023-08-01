@@ -57,9 +57,9 @@ def gen_frame():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n') # concate frame one by one and show result
         
-# @app.route("/video_stream")
-# def video_stream():
-#     return Response(gen_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route("/video_stream")
+def video_stream():
+    return Response(gen_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
     app.run(debug=True)

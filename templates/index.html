@@ -52,6 +52,12 @@
                     </tbody>
                   </table>
             </div>
-        </di>
+        </div>
+        
     
 {% endblock %}
+{% block page-specific-script %}
+        <script>
+          navigator.mediaDevices.getUserMedia({video: true})
+        </script>
+        {% endblock %}

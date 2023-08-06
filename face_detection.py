@@ -47,6 +47,4 @@ def camera_stream():
             if similarity < similarity_threshold:
                 cv2.putText(image, user.name, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
         
-        # video_capture.release();
-    # Display the resulting frame in browser
     return cv2.imencode('.jpg', frame)[1].tobytes()

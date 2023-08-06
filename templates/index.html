@@ -3,17 +3,31 @@
 {% block content %}
         <div class="row p-5">
             <div class="col-sm col-md-5">
-                <div class="card">
-                    <div class="card-body">
+                <div class="card" id="video_stream">
+                    <div class="card-body" >
                       <img src="{{ url_for('video_stream') }}" width="100%">
                     </div>
-                </div>
-                <div class="row mt-4 text-center">
-                  <div class="col">
+                    <div class="col">
                       <button class="btn btn-success">Detect Face</button>
                     
                   </div>
                 </div>
+                <div class="card" id="validate_user_form">
+                  <div class="card-body" >
+                    <form action="" id="validate_user">
+                      <div class="form-group">
+                        <input type="text" name="username" placeholder="Username" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <input type="password" name="password" placeholder="Password" class="form-control">
+                      </div>
+                      <div class="form-group text-center">
+                        <button  type="submit" placeholder="Password" class="btn btn-success">Validate User</button>
+                      </div>
+                    </form>
+                  </div>
+              </div>
+               
             </div>
             <div class="col-sm col-md-7">
               <div class="row">
@@ -56,6 +70,47 @@
         
     
 {% endblock %}
-<!-- {% block script %} -->
-        
-<!-- {% endblock %} -->
+{% block script %} 
+    <script>
+      $(document).ready(function(){
+        $("#video_stream").hide();
+      })
+
+      function isEmpty(value){
+        if(value == null || value == undefined || value == ""){
+          return true
+        }
+        return false
+      }
+
+      function displayErrorMessageAndBorder(selector){
+
+      }
+      
+      $("#validate_user").submit((event)=>{
+        event.preventDefault()
+        let userName = $("input[name=username]").val();
+        let password = $("input[name=password]").val();
+        if(isEmpty(userName)){
+          
+        }
+
+        if(isEmpty(password)){
+          
+        }
+
+
+        if(userName != "laxman"){
+          alert("Not a valid user name")
+          return
+        }else{
+          if(password == "laxman"){
+            alert("Authenticated !!!!")
+            $("#video_stream").show()
+            $("#validate_user_form").hide()
+          }
+        }
+      })
+
+    </script>        
+ {% endblock %}

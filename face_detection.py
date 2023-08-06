@@ -34,6 +34,7 @@ def camera_stream():
     for (x, y, w, h) in faces:
         face_roi = gray[y:y+h, x:x+w]
         face_roi_resized = cv2.resize(face_roi, (128, 128))
+        image = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         for user in db.view():
             user_image = cv2.imread("static/"+user.image, cv2.IMREAD_GRAYSCALE)
             user_image_resized = cv2.resize(user_image, (128, 128))
@@ -41,12 +42,11 @@ def camera_stream():
             diff = cv2.absdiff(face_roi_resized, user_image_resized)
             similarity = np.sum(diff)
 
-            similarity_threshold = 5000
-            print(similarity)
-            print(similarity_threshold)
+            similarity_threshold = 200000000
+            
             if similarity < similarity_threshold:
-                print(f"User found: {user.name}")
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                cv2.putText(image, user.name, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+        
         # video_capture.release();
     # Display the resulting frame in browser
     return cv2.imencode('.jpg', frame)[1].tobytes()

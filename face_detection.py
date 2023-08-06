@@ -1,7 +1,10 @@
 import os
 from flask import Flask
 import pkg_resources
+import numpy as np
 import cv2
+import db
+
 cascPath = pkg_resources.resource_filename(
     'cv2', 'data/haarcascade_frontalface_default.xml')
 
@@ -29,6 +32,20 @@ def camera_stream():
 
     # Draw a rectangle around the faces
     for (x, y, w, h) in faces:
+        face_roi = gray[y:y+h, x:x+w]
+        face_roi_resized = cv2.resize(face_roi, (128, 128))
+        for user in db.view():
+            user_image = cv2.imread("static/"+user.image, cv2.IMREAD_GRAYSCALE)
+            user_image_resized = cv2.resize(user_image, (128, 128))
+
+            diff = cv2.absdiff(face_roi_resized, user_image_resized)
+            similarity = np.sum(diff)
+
+            similarity_threshold = 5000
+            print(similarity)
+            print(similarity_threshold)
+            if similarity < similarity_threshold:
+                print(f"User found: {user.name}")
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     # Display the resulting frame in browser

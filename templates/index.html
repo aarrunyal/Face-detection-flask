@@ -1,18 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}  User {%endblock%}
 {% block content %}
-        <div class="row p-5">
-            <div class="col-sm col-md-5">
-                <div class="card" id="video_stream">
-                    <div class="card-body" >
-                      <img src="{{ url_for('video_stream') }}" width="100%">
-                    </div>
-                    <div class="col">
-                      <button class="btn btn-success">Detect Face</button>
-                    
-                  </div>
-                </div>
-                <div class="card" id="validate_user_form">
+        <div class="row p-5 " id="login_screen">
+          <div class=" offset-4 col-4" >
+             <div class="card" >
                   <div class="card-body" >
                     <form action="" id="validate_user">
                       <div class="form-group">
@@ -27,6 +18,20 @@
                     </form>
                   </div>
               </div>
+          </div>
+          </div>
+          <div class="row p-5" id="main_screen"> 
+            <div class="col-sm col-md-5">
+                <div class="card">
+                    <div class="card-body" >
+                      <img src="{{ url_for('video_stream') }}" width="100%">
+                    </div>
+                    <div class="col">
+                      <button class="btn btn-success">Detect Face</button>
+                    
+                  </div>
+                </div>
+               
                
             </div>
             <div class="col-sm col-md-7">
@@ -72,8 +77,9 @@
 {% endblock %}
 {% block script %} 
     <script>
+      $("#main_screen").hide();
       $(document).ready(function(){
-        $("#video_stream").hide();
+        $("#main_screen").hide();
       })
 
       function isEmpty(value){
@@ -92,11 +98,17 @@
         let userName = $("input[name=username]").val();
         let password = $("input[name=password]").val();
         if(isEmpty(userName)){
-          
+          $("input[name=username]").css("border","1px solid red")
+          setTimeout(() => {
+            $("input[name=username]").css("border","1px solid lightgray")                                    
+          }, 3000);
         }
 
         if(isEmpty(password)){
-          
+          $("input[name=password]").css("border","1px solid red")
+          setTimeout(() => {
+            $("input[name=password]").css("border","1px solid lightgray")                                    
+          }, 3000);
         }
 
 
@@ -106,8 +118,8 @@
         }else{
           if(password == "laxman"){
             alert("Authenticated !!!!")
-            $("#video_stream").show()
-            $("#validate_user_form").hide()
+            $("#main_screen").show()
+            $("#login_screen").hide()
           }
         }
       })

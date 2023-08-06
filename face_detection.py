@@ -47,6 +47,6 @@ def camera_stream():
             if similarity < similarity_threshold:
                 print(f"User found: {user.name}")
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
+    video_capture.release();
     # Display the resulting frame in browser
     return cv2.imencode('.jpg', frame)[1].tobytes()
